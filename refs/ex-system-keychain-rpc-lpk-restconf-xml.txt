@@ -1,0 +1,36 @@
+REQUEST
+-------
+
+  ['\' line wrapping added for formatting only]
+  
+  POST https://example.com/restconf/data/ietf-system-keychain:keychain/\
+  private-keys/generate-private-key HTTP/1.1
+  HOST: example.com
+  Content-Type: application/yang.operation+xml
+  
+  <input xmlns="urn:ietf:params:xml:ns:yang:ietf-system-keychain">
+    <name>ex-key-sect571r1</name>
+    <private-key>
+      NGcEk3UE90cnNFVjRwTUNBd0VBQWFPQ0FSSXdnZ0VPCk1CMEdBMVVkRGd\
+      VEJiZ0JTWEdlbUEKMnhpRHVOTVkvVHFLNWd4cFJBZ1ZOYUU0cERZd05ER\
+      V6QVJCZ05WQkFNVENrTlNUQ0JKYzNOMVpYS0NDUUNVRHBNSll6UG8zREF\
+      Z05WSFI4RVlqQmdNRjZnSXFBZ2hoNW9kSFJ3T2k4dlpYaGgKYlhCc1pTN\
+      QmdOVkJBWVRBbFZUTVJBd0RnWURWUVFLRXdkbAplR0Z0Y0d4bE1RNHdEQ\
+      MkF6a3hqUDlVQWtHR0dvS1U1eUc1SVR0Wm0vK3B0R2FieXVDMjBRd2kvZ\
+      NQmdOVkhSTUJBZjhFCkFqQUFNQTRHQTFVZER3RUIvd1FFQXdJSGdEQnBC\
+      WmdsK2gyTTg3QmtGMjhWbW1CdFFVaWc3OEgrRkYyRTFwdSt4ZVRJbVFFM\
+      lLQllsdWpOcjFTMnRLR05EMUc2OVJpK2FWNGw2NTdZNCtadVJMZgpRYjk\
+      zSFNwSDdwVXBCYnA4dmtNanFtZjJma3RqZHBxeFppUUtTbndWZTF2Zwot\
+      25PZnpZNEhONApXY0pTaUpZK2xtYWs3RTRORUZXZS9RdGp4NUlXZmdvN2\
+      WpiMjB2WlhoaGJYQnNaUzVqY215aU9L=
+    </private-key>
+  </input>
+
+
+RESPONSE
+--------
+
+  HTTP/1.1 204 No Content
+  Date: Mon, 31 Oct 2015 11:01:00 GMT
+  Server: example-server
+

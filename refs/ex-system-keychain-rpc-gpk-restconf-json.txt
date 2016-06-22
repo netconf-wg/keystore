@@ -1,0 +1,25 @@
+REQUEST
+-------
+
+  ['\' line wrapping added for formatting only]
+  
+  POST https://example.com/restconf/data/ietf-system-keychain:keychain/\
+  private-keys/generate-private-key HTTP/1.1
+  HOST: example.com
+  Content-Type: application/yang.operation+json
+  
+  {
+    "ietf-system-keychain:input" : {
+      "name" : "ex-key-sect571r1",
+      "algorithm" : "sect571r1"
+    }
+  }
+
+
+RESPONSE
+--------
+
+  HTTP/1.1 204 No Content
+  Date: Mon, 31 Oct 2015 11:01:00 GMT
+  Server: example-server
+

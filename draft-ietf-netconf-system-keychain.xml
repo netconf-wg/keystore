@@ -1,0 +1,523 @@
+<?xml version='1.0'?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!ENTITY rfc2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY rfc2986 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2986.xml">
+<!ENTITY rfc3688 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml">
+<!ENTITY rfc4211 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4211.xml">
+<!ENTITY rfc5056 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5056.xml">
+<!ENTITY rfc5246 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml">
+<!ENTITY rfc5280 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5280.xml">
+<!ENTITY rfc5914 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5914.xml">
+<!ENTITY rfc5958 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5958.xml">
+<!ENTITY rfc6020 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6020.xml">
+<!ENTITY rfc6241 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6241.xml">
+<!ENTITY rfc6335 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6335.xml">
+<!ENTITY rfc6536 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6536.xml">
+]>
+
+<?rfc toc="yes"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes" ?>
+<?rfc compact="yes"?>
+<?rfc subcompact="no"?>
+<?rfc linkmailto="no" ?>
+<?rfc editing="no" ?>
+<?rfc comments="yes" ?>
+<?rfc inline="yes"?>
+<?rfc rfcedstyle="yes"?>
+<?rfc-ext allow-markup-in-artwork="yes" ?>
+<?rfc-ext include-index="no" ?>
+<!--<?rfc strict="no"?> -->
+
+<rfc category="std"
+     ipr="trust200902"
+     docName="draft-ietf-netconf-system-keychain-latest" >
+    <front>
+        <title>System Keychain Model</title>
+        <author initials="K.W." surname="Watsen" fullname="Kent Watsen">
+            <organization>Juniper Networks</organization>
+            <address>
+                <email>kwatsen@juniper.net</email>
+            </address>
+        </author>
+        <author initials="J.S." surname="Schoenwaelder" fullname="Juergen Schoenwaelder">
+            <organization>Jacobs University Bremen</organization>
+            <address>
+                <email>j.schoenwaelder@jacobs-university.de</email>
+            </address>
+        </author>
+        <date/>
+        <area>Operations</area>
+        <workgroup>NETCONF Working Group</workgroup>
+        <abstract>
+            <t>This draft defines a YANG data module for a system-level keychain
+            mechanism, that might be used to hold onto private keys and certificates
+            that are trusted by the system advertising support for this module.</t>
+        </abstract>
+        <note title="Editorial Note (To be removed by RFC Editor)">
+          <t>This draft contains many placeholder values that need to be replaced
+          with finalized values at the time of publication.  This note summarizes
+          all of the substitutions that are needed.  No other RFC Editor 
+          instructions are specified elsewhere in this document.</t>
+
+          <t>This document contains references to other drafts in progress, both in
+          the Normative References section, as well as in body text throughout.  
+          Please update the following references to reflect their final RFC assignments:
+            <list style="symbols">
+              <t>draft-ietf-netconf-restconf</t>
+              <t>draft-ietf-netconf-call-home</t>
+              <t>draft-ietf-rtgwg-yang-key-chain</t>
+            </list>
+          </t>
+          <t>Artwork in this document contains shorthand references to drafts in 
+          progress.  Please apply the following replacements:
+            <list  style="symbols">
+              <t><spanx style="verb">VVVV</spanx> --&gt; the assigned RFC value for this draft</t>
+              <t><spanx style="verb">XXXX</spanx> --&gt; the assigned RFC value for draft-ietf-netconf-restconf</t>
+              <t><spanx style="verb">YYYY</spanx> --&gt; the assigned RFC value for draft-ietf-netconf-call-home</t>
+            </list>
+          </t>
+          <t>Artwork in this document contains placeholder values for ports pending IANA assignment
+          from "draft-ietf-netconf-call-home".  Please apply the following replacements:
+            <list  style="symbols">
+              <t><spanx style="verb">7777</spanx> --&gt; the assigned port value for "netconf-ch-ssh"</t>
+              <t><spanx style="verb">8888</spanx> --&gt; the assigned port value for "netconf-ch-tls"</t>
+              <t><spanx style="verb">9999</spanx> --&gt; the assigned port value for "restconf-ch-tls"</t>
+            </list>
+          </t>
+          <t>Artwork in this document contains placeholder values for the date of publication of this
+          draft.  Please apply the following replacement:
+            <list  style="symbols">
+              <t><spanx style="verb">YYYY-MM-DD</spanx> --&gt; the publication date of this draft</t>
+            </list>
+          </t>
+          <t>The following two Appendix sections are to be removed prior to publication:
+            <list  style="symbols">
+              <t>Appendix A.  Change Log</t>
+              <t>Appendix B.  Open Issues</t>
+            </list>
+          </t>
+        </note>
+    </front>
+    <middle>
+      <section title="Introduction">
+
+        <t>This draft defines a YANG <xref target="RFC6020"/> data module for
+        a system-level keychain mechanism, which can be used to hold onto 
+        private keys and certificates that are trusted by the system advertising
+        support for this module.</t>
+
+        <t>This module provides a centralized location for security sensitive
+        data, so that the data can be then referenced by other modules.
+        There are two types of data that are maintained by this module:
+          <list style="symbols">
+            <t>Private keys, and any associated public certificates.</t>
+            <t>Sets of trusted certificates.</t>
+          </list>
+        </t>
+
+        <t>This draft extends special consideration for systems that have 
+        Trusted Protection Modules (TPMs).  These systems are unique in
+        that the TPM must be directed to generate new private keys (it is
+        not possible to load a private key into a TPM) and it is not 
+        possible to backup/restore the TPM's private keys as configuration.</t>
+
+        <t>It is not required that a system has an operating system level
+        keychain utility to implement this module.</t>
+
+
+        <section title="Terminology">
+          <t>The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL",
+          "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
+          and "OPTIONAL" in this document are to be interpreted as
+          described in RFC 2119 <xref target="RFC2119"/>.</t>
+        </section>
+
+        <section title="Tree Diagrams" anchor="tree-diagrams">
+          <t>A simplified graphical representation of the data models
+          is used in this document.  The meaning of the symbols in
+          these diagrams is as follows:
+            <list style="symbols">
+              <t>Brackets "[" and "]" enclose list keys.</t>
+              <t>Braces "{" and "}" enclose feature names, and indicate
+              that the named feature must be present for the subtree
+              to be present.</t>
+              <t>Abbreviations before data node names: "rw" means
+              configuration (read-write) and "ro" state data 
+              (read-only).</t>
+              <t>Symbols after data node names: "?" means an optional
+              node, "!" means a presence container, and "*" denotes a
+              list and leaf-list.</t>
+              <t>Parentheses enclose choice and case nodes, and case
+              nodes are also marked with a colon (":").</t>
+              <t>Ellipsis ("...") stands for contents of subtrees that
+              are not shown.</t>
+            </list>
+          </t>
+        </section>
+      </section>
+
+      <section title="The System Keychain Model" anchor="keychain-model">
+        <t>The system keychain module defined in this section provides a configurable
+        object having the following characteristics:
+          <list style="symbols">
+            <t>A semi-configurable list of private keys, each with one or more associated
+            certificates.  Private keys MUST be either preinstalled (e.g., a key associated
+            to an IDevID <xref target="Std-802.1AR-2009"/> certificate),
+            be generated by request, or be loaded by request.  Each private key is MAY have
+            associated certificates, either preinstalled or configured after creation.</t>
+            <t>A configurable list of lists of trust anchor certificates.  This enables 
+            the server to have use-case specific trust anchors.  For instance, one list of 
+            trust anchors might be used to authenticate management connections (e.g.,
+            client certificate-based authentication for NETCONF or RESTCONF connections),
+            and a different list of trust anchors might be used for when connecting to a
+            specific Internet-based service (e.g., a zero touch bootstrap server).</t>
+            <t>An RPC to generate a certificate signing request for an existing private
+            key, a passed subject, and an optional attributes.  The signed certificate
+            returned from an external certificate authority (CA) can be later set using
+            a standard configuration change request (e.g., &lt;edit-config&gt;).</t>
+            <t>An RPC to request the server to generate a new private key using the
+            specified algorithm and key length.</t>
+            <t>An RPC to request the server to load a new private key.</t>
+          </list>
+        </t>
+        <section title="Overview">
+          <t>The system keychain module has the following tree diagram.  Please see <xref target="tree-diagrams"/> for information on how to interpret this diagram.
+            <figure>
+              <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(refs/ietf-system-keychain-tree.txt)
+]]></artwork>
+            </figure>
+          </t>
+        </section>
+
+        <section title="Example Usage">
+          <t>The following example illustrates the "generate-private-key" action
+          in use with the RESTCONF protocol and JSON encoding.</t>
+          <t>
+            <figure>
+              <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(refs/ex-system-keychain-rpc-gpk-restconf-json.txt)
+]]></artwork>
+            </figure>
+          </t>
+          <t>The following example illustrates the "load-private-key" action 
+          in use with the RESTCONF protocol and JSON encoding.</t>
+          <t>
+            <figure>
+              <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(refs/ex-system-keychain-rpc-lpk-restconf-xml.txt)
+]]></artwork>
+            </figure>
+          </t>
+          <t>The following example illustrates the "generate-certificate-signing-request"
+          action in use with the NETCONF protocol.</t>
+          <t>
+            <figure>
+              <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(refs/ex-system-keychain-rpc-gcsr-netconf.txt)
+]]></artwork>
+            </figure>
+          </t>
+          <t>The following example illustrates what a fully configured keychain object
+          might look like.  The private-key shown below is consistent with the 
+          generate-private-key and generate-certificate-signing-request examples above.
+          This example also assumes that the resulting CA-signed certificate has been
+          configured back onto the server.  Lastly, this example shows that three
+          lists of trusted certificates having been configured.</t>
+          <t>
+            <figure>
+              <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(refs/ex-system-keychain.xml)
+]]></artwork>
+            </figure>
+          </t>
+          <t>The following example illustrates a "certificate-expiration"
+          notification in XML.</t>
+          <t>
+            <figure>
+              <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(refs/ex-system-keychain-ce-notification.txt)
+]]></artwork>
+            </figure>
+          </t>
+
+        </section>
+
+        <section title="YANG Module" anchor="keychain-yang-module">
+          <t>This YANG module makes extensive use of data types defined in
+          <xref target="RFC5280"/> and <xref target="RFC5958"/>.</t>
+          <t>
+            <figure>
+              <artwork><![CDATA[
+
+<CODE BEGINS> file "ietf-system-keychain@YYYY-MM-DD.yang"
+
+INSERT_TEXT_FROM_FILE(ietf-system-keychain@YYYY-MM-DD.yang)
+
+<CODE ENDS>
+]]></artwork>
+            </figure>
+          </t>
+        </section>
+      </section>
+
+      <section title="Design Considerations">
+
+        <t>This document uses PKCS #10 <xref target="RFC2986"/> for the
+        "generate-certificate-signing-request" action.  The use of Certificate
+        Request Message Format (CRMF) <xref target="RFC4211"/> was considered,
+        but is was unclear if there was market demand for it, and so support
+        for CRMF has been left out of this specification.  If it is desired 
+        to support CRMF in the future, placing a "choice" statement in both
+        the input and output statements, along with an "if-feature" statement
+        on the CRMF option, would enable a backwards compatible solution.</t>
+
+        <t>This document puts a limit of the number of elliptical curves
+        supported.  This was done to match industry trends in IETF best
+        practice (e.g., matching work being done in TLS 1.3).  If additional
+        algorithms are needed, they MAY be augmented in by another module,
+        or added directly in a future version of this document.</t>
+
+        <t>Both this document and Key Chain YANG Data Model <xref 
+        target="draft-ietf-rtgwg-yang-key-chain"/> define keychain YANG
+        modules.  The authors looked at this and agree that they two
+        modules server different purposes and hence not worth merging
+        into one document.  To underscore this further, this document
+        renamed its module from "ietf-keychain" to  "ietf-system-keychain"
+        and that other document renamed its module from "ietf-key-chain"
+        to "ietf-routing-key-chain".</t>
+
+        <t>For the trusted-certificates list, Trust Anchor Format <xref target="RFC5914"/>
+        was evaluated and deemed inappropriate due to this document's need to also support
+        pinning.  That is, pinning a client-certificate to support NETCONF over TLS
+        client authentication.</t>
+ 
+      </section>
+
+
+      <section title="Security Considerations">
+
+        <t>This document defines a keychain mechanism that is entrusted with the
+        safe keeping of private keys, and the safe keeping of trusted certificates.
+        Nowhere in this API is there an ability to access (read out) a private key
+        once it is known to the keychain.  Further, associated public keys and
+        attributes (e.g., algorithm name, key length, etc.) are read-only.  That
+        said, this document allows for the deletion of private keys and their
+        certificates, as well the deletion of trusted certificates.  Access control
+        mechanisms (e.g., NACM <xref target="RFC6536"/>) MUST be in place so as to
+        authorize such client actions.  Further, whilst the data model allows for
+        private keys and trusted certificates in general to be deleted, implementations
+        should be well aware that some privates keys (e.g., those in a TPM) and 
+        some trusted certificates, should never be deleted, regardless if the
+        authorization mechanisms would generally allow for such actions.</t>
+
+        <t>For the "generate-certificate-signing-request" action, it is RECOMMENDED
+        that devices implement assert channel binding <xref target="RFC5056"/>, so
+        as to ensure that the application layer that sent the request is the same
+        as the device authenticated in the secure transport layer was established.</t>
+
+        <t>This document defines a data model that includes a list of private keys.
+        These private keys MAY be deleted using standard NETCONF or RESTCONF 
+        operations (e.g., &lt;edit-config&gt;).  Implementations SHOULD automatically
+        (without explicit request) zeroize these keys in the most secure manner
+        available, so as to prevent the remnants of their persisted storage 
+        locations from being analyzed in any meaningful way.</t>
+
+        <t>The keychain module define within this document defines the "load-private-key"
+        action enabling a device to load a client-supplied private key.  This is a private
+        key with no shrouding to protect it.  The strength of this private key MUST NOT
+        be greater than the strength of the underlying secure transport connection over
+        which it is communicated.  Devices SHOULD fail this request if ever the strength
+        of the private key is greater then the strength of the underlying transport.</t>
+
+<!--
+I removed all the NACM statements in the new modules
+
+            <t>There are a number of data nodes defined in the 
+            "ietf-netconf-server" and "ietf-restconf-server" YANG
+            modules which are readable and/or writable that may 
+            be considered sensitive or vulnerable in some 
+            network environments.  Write and read operations to
+            these data nodes can have a negative effect on network
+            operations.  It is thus important to control write
+            and read access to these data nodes.  Below are the 
+            data nodes and their sensitivity/vulnerability.</t>
+
+            <t>netconf-server/tls/client-auth/trusted-ca-certs:
+            <list style="symbols">
+              <t>This container contains certificates that a NETCONF server
+              is to use as trust anchors for authenticating X.509-based
+              client certificates.  Write access to this node is
+              protected using an nacm:default-deny-write statement.</t>
+            </list>
+            </t>
+
+            <t>netconf-server/tls/client-auth/trusted-client-certs:
+            <list style="symbols">
+              <t>This container contains certificates that a NETCONF server
+              is to trust directly when authenticating X.509-based
+              client certificates.  Write access to this node is
+              protected using an nacm:default-deny-write statement.</t>
+            </list>
+            </t>
+
+            <t>restconf-server/tls/client-auth/trusted-ca-certs:
+            <list style="symbols">
+              <t>This container contains certificates that a RESTCONF server
+              is to use as trust anchors for authenticating X.509-based
+              client certificates.  Write access to this node is
+              protected using an nacm:default-deny-write statement.</t>
+            </list>
+            </t>
+
+            <t>restconf-server/tls/client-auth/trusted-client-certs:
+            <list style="symbols">
+              <t>This container contains certificates that a RESTCONF server
+              is to trust directly when authenticating X.509-based
+              client certificates.  Write access to this node is
+              protected using an nacm:default-deny-write statement.</t>
+            </list>
+            </t>
+-->
+      </section>
+
+      <section title="IANA Considerations">
+        <section title="The IETF XML Registry">
+          <t>This document registers two URIs in the IETF XML 
+          registry <xref target="RFC2119"/>.  Following the format in 
+          <xref target="RFC3688"/>, the following registrations are
+          requested:</t>
+          <t>
+            <figure>
+                <artwork><![CDATA[
+   URI: urn:ietf:params:xml:ns:yang:ietf-netconf-server
+   Registrant Contact: The NETCONF WG of the IETF.
+   XML: N/A, the requested URI is an XML namespace.
+
+   URI: urn:ietf:params:xml:ns:yang:ietf-restconf-server
+   Registrant Contact: The NETCONF WG of the IETF.
+   XML: N/A, the requested URI is an XML namespace.
+]]></artwork>
+            </figure>
+          </t>
+        </section>
+        <section title="The YANG Module Names Registry">
+          <t>This document registers five YANG modules in the
+          YANG Module Names registry <xref target="RFC6020"/>.
+          Following the format in <xref target="RFC6020"/>, the
+          the following registrations are requested:</t>
+          <t>
+            <figure>
+                <artwork><![CDATA[
+   name:         ietf-system-keychain
+   namespace:    urn:ietf:params:xml:ns:yang:ietf-system-keychain
+   prefix:       kc
+   reference:    RFC VVVV
+
+]]></artwork>
+            </figure>
+          </t>
+        </section>
+      </section>
+
+
+      <section title="Acknowledgements">
+        <t>The authors would like to thank for following for
+        lively discussions on list and in the halls (ordered
+        by last name): Andy Bierman, Martin Bjorklund, Benoit Claise,
+        Mehmet Ersue, David Lamparter, Alan Luchuk, Ladislav Lhotka,
+        Radek Krejci, Tom Petch, Phil Shafer, Sean Turner, and
+        Bert Wijnen.</t>
+       <t>
+         Juergen Schoenwaelder and was partly funded by Flamingo, a
+         Network of Excellence project (ICT-318488) supported by the
+         European Commission under its Seventh Framework Programme.
+       </t>
+     </section>
+
+    </middle>
+
+    <back>
+      <references title="Normative References">
+         &rfc2119;
+         &rfc2986;
+         &rfc5280;
+         &rfc5958;
+         &rfc6020;
+         &rfc6241;
+         <reference anchor='draft-ietf-netconf-restconf'>
+           <front>
+             <title>RESTCONF Protocol</title>
+             <author initials='A.B.' surname='Bierman'
+                fullname='Andy Bierman'>
+               <organization>YumaWorks</organization>
+             </author>
+             <author initials='M' surname='Bjorklund' 
+                fullname='Martin Bjorklund'>
+               <organization>Tail-f Systems</organization>
+             </author>
+             <author initials='K.W.' surname='Watsen'
+                fullname='Kent Watsen'>
+               <organization>Juniper Networks</organization>
+             </author>
+             <date year='2014' />
+           </front>
+           <seriesInfo name='Internet-Draft'
+                  value='draft-ieft-netconf-restconf-04' />
+        </reference>
+      </references>
+      <references title="Informative References">
+        &rfc3688;
+        &rfc4211;
+        &rfc5056;
+        &rfc5914;
+        &rfc6536;
+
+        <reference anchor="Std-802.1AR-2009" target="http://standards.ieee.org/findstds/standard/802.1AR-2009.html">
+            <front>
+                <title>IEEE Standard for Local and metropolitan area networks - Secure Device Identity</title>
+                <author fullname="WG802.1 - Higher Layer LAN Protocols Working Group">
+                    <organization>IEEE SA-Standards Board</organization>
+                </author>
+                <date month="December" year="2009"/>
+            </front>
+        </reference>
+        <reference anchor='draft-ietf-rtgwg-yang-key-chain' target="https://tools.ietf.org/html/draft-ietf-rtgwg-yang-key-chain">
+          <front>
+            <title>Key Chain YANG Data Model</title>
+            <author initials='A.L.' surname='Lindem' fullname='Acee Lindem'>
+              <organization>Cisco</organization>
+            </author>
+            <author initials='Y.Q.' surname='Qu' fullname='Yingzhen Qu'>
+              <organization>Cisco</organization>
+            </author>
+            <author initials='D.Y.' surname='Yeung' fullname='Derek Yeung'>
+              <organization>Cisco</organization>
+            </author>
+            <author initials='I.C.' surname='Chen' fullname='Ing-Wher Chen'>
+              <organization>Ericson</organization>
+            </author>
+            <author initials='J.Z.' surname='Zhang' fullname='Jeffery Zhang'>
+              <organization>Juniper</organization>
+            </author>
+            <author initials='Y.Y.' surname='Yang' fullname='Yi Yang'>
+              <organization>Cisco</organization>
+            </author>
+            <date year='2016' />
+          </front>
+          <seriesInfo name='Internet-Draft' value='draft-ietf-rtgwg-yang-key-chain' />
+        </reference>
+
+      </references>
+
+      <section title="Change Log">
+        <t>This draft was split out from draft-ietf-netconf-server-model</t>
+      </section>
+
+      <section title="Open Issues">
+        <t>Please see: https://github.com/netconf-wg/system-keychain/issues.</t>
+      </section>
+    </back>
+</rfc>
+

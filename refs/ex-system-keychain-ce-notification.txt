@@ -1,0 +1,14 @@
+['\' line wrapping added for formatting only]
+
+<notification
+  xmlns="urn:ietf:params:xml:ns:netconf:notification:1.0">
+  <eventTime>2016-07-08T00:01:00Z</eventTime>
+  <certificate-expiration 
+    xmlns="urn:ietf:params:xml:ns:yang:ietf-system-keychain">
+    <certificate>
+      /kc:keychain/kc:private-keys/kc:private-key/kc:certificate-chains\
+      /kc:certificate-chain/kc:certificate[3]
+    </certificate>
+    <expiration-date>2016-08-08T14:18:53-05:00</expiration-date>
+  </certificate-expiration>
+</notification>
