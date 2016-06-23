@@ -39,9 +39,6 @@ clean:
 	-rm -f $(draft).txt $(draft).html index.html
 	-rm -f $(next).txt $(next).html
 	-rm -f $(draft)-[0-9][0-9].xml
-	-rm -f ietf-*conf-server\@*.yang
-	-rm -f ietf-???-server\@*.yang
-	-rm -f ietf-system-keychain\@*.yang
 ifeq (md,$(draft_type))
 	-rm -f $(draft).xml
 endif
@@ -52,11 +49,10 @@ endif
 $(next).xml: $(draft).xml
 	sed -e"s/$(basename $<)-latest/$(basename $@)/" -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" $< > $@
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ietf-system-keychain.yang > ietf-system-keychain\@$(shell date +%Y-%m-%d).yang
-
 	cd refs; ./gen-trees.sh; cd ..;
-	./.insert-figures.sh $@ > tmp
-	mv tmp $@
+	./.insert-figures.sh $@ > tmp; mv tmp $@
 	rm refs/*-tree.txt
+	rm ietf-system-keychain\@$(shell date +%Y-%m-%d).yang
 
 .INTERMEDIATE: $(draft).xml
 %.xml: %.md

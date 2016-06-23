@@ -40,12 +40,6 @@
                 <email>kwatsen@juniper.net</email>
             </address>
         </author>
-        <author initials="J.S." surname="Schoenwaelder" fullname="Juergen Schoenwaelder">
-            <organization>Jacobs University Bremen</organization>
-            <address>
-                <email>j.schoenwaelder@jacobs-university.de</email>
-            </address>
-        </author>
         <date/>
         <area>Operations</area>
         <workgroup>NETCONF Working Group</workgroup>
@@ -384,18 +378,14 @@ I removed all the NACM statements in the new modules
 
       <section title="IANA Considerations">
         <section title="The IETF XML Registry">
-          <t>This document registers two URIs in the IETF XML 
+          <t>This document registers one URI in the IETF XML 
           registry <xref target="RFC2119"/>.  Following the format in 
-          <xref target="RFC3688"/>, the following registrations are
+          <xref target="RFC3688"/>, the following registration is
           requested:</t>
           <t>
             <figure>
                 <artwork><![CDATA[
-   URI: urn:ietf:params:xml:ns:yang:ietf-netconf-server
-   Registrant Contact: The NETCONF WG of the IETF.
-   XML: N/A, the requested URI is an XML namespace.
-
-   URI: urn:ietf:params:xml:ns:yang:ietf-restconf-server
+   URI: urn:ietf:params:xml:ns:yang:ietf-system-keychain
    Registrant Contact: The NETCONF WG of the IETF.
    XML: N/A, the requested URI is an XML namespace.
 ]]></artwork>
@@ -403,10 +393,10 @@ I removed all the NACM statements in the new modules
           </t>
         </section>
         <section title="The YANG Module Names Registry">
-          <t>This document registers five YANG modules in the
+          <t>This document registers one YANG module in the
           YANG Module Names registry <xref target="RFC6020"/>.
           Following the format in <xref target="RFC6020"/>, the
-          the following registrations are requested:</t>
+          the following registration is requested:</t>
           <t>
             <figure>
                 <artwork><![CDATA[
@@ -427,13 +417,8 @@ I removed all the NACM statements in the new modules
         lively discussions on list and in the halls (ordered
         by last name): Andy Bierman, Martin Bjorklund, Benoit Claise,
         Mehmet Ersue, David Lamparter, Alan Luchuk, Ladislav Lhotka,
-        Radek Krejci, Tom Petch, Phil Shafer, Sean Turner, and
-        Bert Wijnen.</t>
-       <t>
-         Juergen Schoenwaelder and was partly funded by Flamingo, a
-         Network of Excellence project (ICT-318488) supported by the
-         European Commission under its Seventh Framework Programme.
-       </t>
+        Radek Krejci, Tom Petch, Juergen Schoenwaelder; Phil Shafer, 
+        Sean Turner, and Bert Wijnen.</t>
      </section>
 
     </middle>
