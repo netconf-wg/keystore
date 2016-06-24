@@ -44,7 +44,7 @@
         <area>Operations</area>
         <workgroup>NETCONF Working Group</workgroup>
         <abstract>
-            <t>This draft defines a YANG data module for a system-level keychain
+            <t>This document defines a YANG data module for a system-level keychain
             mechanism, that might be used to hold onto private keys and certificates
             that are trusted by the system advertising support for this module.</t>
         </abstract>
@@ -96,7 +96,7 @@
     <middle>
       <section title="Introduction">
 
-        <t>This draft defines a YANG <xref target="RFC6020"/> data module for
+        <t>This document defines a YANG <xref target="RFC6020"/> data module for
         a system-level keychain mechanism, which can be used to hold onto 
         private keys and certificates that are trusted by the system advertising
         support for this module.</t>
@@ -110,7 +110,7 @@
           </list>
         </t>
 
-        <t>This draft extends special consideration for systems that have 
+        <t>This document extends special consideration for systems that have 
         Trusted Protection Modules (TPMs).  These systems are unique in
         that the TPM must be directed to generate new private keys (it is
         not possible to load a private key into a TPM) and it is not 
