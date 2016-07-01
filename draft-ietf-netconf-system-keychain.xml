@@ -468,7 +468,7 @@ I removed all the NACM statements in the new modules
                 <date month="December" year="2009"/>
             </front>
         </reference>
-        <reference anchor='draft-ietf-rtgwg-yang-key-chain' target="https://tools.ietf.org/html/draft-ietf-rtgwg-yang-key-chain">
+        <reference anchor='draft-ietf-rtgwg-yang-key-chain' target="https://datatracker.ietf.org/html/draft-ietf-rtgwg-yang-key-chain">
           <front>
             <title>Key Chain YANG Data Model</title>
             <author initials='A.L.' surname='Lindem' fullname='Acee Lindem'>
