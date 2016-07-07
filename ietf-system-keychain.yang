@@ -52,55 +52,56 @@ module ietf-system-keychain {
                 Models";
   }
 
-/*
-  // KENT: add missing feature statements!
-  typedef algorithm {
-    type enumeration {
-      enum rsa { description "The RSA algorithm."; }
-      enum secp192r1 { description "The secp192r1 algorithm. KENT ADD REF!"; }
-      enum secp256r1 { description "The secp256r1 algorithm. KENT ADD REF!"; }
-      enum secp384r1 { description "The secp384r1 algorithm. KENT ADD REF!"; }
-      enum secp521r1 { description "The secp521r1 algorithm. KENT ADD REF!"; }
-      // what about ecdh_x25519 and ecdh_x448 in TLS 1.3?
-    }
-    description
-      "Asymmetric key algorithms.  This list has been trimmed down
-       to the minimal subset of algorithms recommended by the IETF.
-       Please see the Design Consideration section in RFC VVVV for
-       more information about this.";
-  }
-*/
 
   identity key-algorithm {
     description
       "Base identity from which all key-algorithms are derived.";
   }
+
   identity rsa {
     base key-algorithm;
     description
-      "The RSA algorithm.  FIXME: needs ref";
+      "The RSA algorithm.";
+    reference
+      "RFC3447: Public-Key Cryptography Standards (PKCS) #1:
+                RSA Cryptography Specifications Version 2.1.";
   }
+
   identity secp192r1 {
     base key-algorithm;
     description
-      "The secp192r1 algorithm.  FIXME: needs ref";
+      "The secp192r1 algorithm.";
+    reference
+      "RFC5480: 
+         Elliptic Curve Cryptography Subject Public Key Information.";
   }
+
   identity secp256r1 {
     base key-algorithm;
     description
-      "The secp256r1 algorithm.  FIXME: needs ref";
+      "The secp256r1 algorithm.";
+    reference
+      "RFC5480: 
+         Elliptic Curve Cryptography Subject Public Key Information.";
   }
+
   identity secp384r1 {
     base key-algorithm;
     description
-      "The secp384r1 algorithm.  FIXME: needs ref";
+      "The secp384r1 algorithm.";
+    reference
+      "RFC5480: 
+         Elliptic Curve Cryptography Subject Public Key Information.";
   }
+
   identity secp521r1 {
     base key-algorithm;
     description
-      "The secp521r1 algorithm.  FIXME: needs ref";
+      "The secp521r1 algorithm.";
+    reference
+      "RFC5480: 
+         Elliptic Curve Cryptography Subject Public Key Information.";
   }
-
 
   container keychain {
     description
@@ -270,20 +271,6 @@ module ietf-system-keychain {
               "The name this private-key should have when listed
                in /keychain/private-keys.  As such, the passed 
                value must not match any existing 'name' value.";
-          }
-          leaf key-usage {
-            type enumeration {
-              enum signing    { description "signing"; }
-              enum encryption { description "encryption"; }
-              // unclear if these should be somehow more
-              // specific or varied.
-            }
-            description
-              "An optional parameter further restricting the use of
-               this key.  Some algorithms inherently restrict use
-               (DH for signing) whereas others can support more than
-               one use (RSA).  This flag forces the device to only
-               allow the key to be used for the indicated purposes.";
           }
           leaf algorithm {
             type identityref {

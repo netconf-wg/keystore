@@ -268,7 +268,7 @@ INSERT_TEXT_FROM_FILE(ietf-system-keychain@YYYY-MM-DD.yang)
         on the CRMF option, would enable a backwards compatible solution.</t>
 
         <t>This document puts a limit of the number of elliptical curves
-        supported.  This was done to match industry trends in IETF best
+        supported by default.  This was done to match industry trends in IETF best
         practice (e.g., matching work being done in TLS 1.3).  If additional
         algorithms are needed, they MAY be augmented in by another module,
         or added directly in a future version of this document.</t>
@@ -497,7 +497,14 @@ I removed all the NACM statements in the new modules
       </references>
 
       <section title="Change Log">
-        <t>This draft was split out from draft-ietf-netconf-server-model</t>
+        <section title="server-model-09 to 00">
+            <t>
+            <list style="symbols">
+              <t>This draft was split out from draft-ietf-netconf-server-model-09.</t>
+              <t>Removed key-usage parameter from generate-private-key action.</t>
+            </list>
+            </t>
+          </section>
       </section>
 
       <section title="Open Issues">
