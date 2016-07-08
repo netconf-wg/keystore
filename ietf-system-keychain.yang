@@ -167,7 +167,9 @@ module ietf-system-keychain {
             leaf name {
               type string;
               description
-                "An arbitrary name for the certificate chain.";
+                "An arbitrary name for the certificate chain.  The
+                 name must be a unique across all private-keys, not
+                 just this within this private key.";
             }
             leaf-list certificate {
               type binary;

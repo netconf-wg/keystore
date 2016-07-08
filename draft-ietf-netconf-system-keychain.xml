@@ -498,13 +498,15 @@ I removed all the NACM statements in the new modules
 
       <section title="Change Log">
         <section title="server-model-09 to 00">
-            <t>
+          <t>
             <list style="symbols">
               <t>This draft was split out from draft-ietf-netconf-server-model-09.</t>
               <t>Removed key-usage parameter from generate-private-key action.</t>
+              <t>Now /private-keys/private-key/certificates/certificate/name
+              must be globally unique (unique across all private keys).</t>
             </list>
-            </t>
-          </section>
+          </t>
+        </section>
       </section>
 
       <section title="Open Issues">
