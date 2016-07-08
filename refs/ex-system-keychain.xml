@@ -3,8 +3,8 @@
   <!-- private keys and associated certificates -->
   <private-keys>
     <private-key>
-      <name>ssh-rsa</name>
-      <algorithm>rsa...</algorithm>
+      <name>my-rsa-user-key</name>
+      <algorithm>rsa</algorithm>
       <public-key>
         cztvaWRoc2RmZ2tqaHNkZmdramRzZnZzZGtmam5idnNvO2RmanZvO3NkZ
         mJpdmhzZGZpbHVidjtvc2lkZmhidml1bHNkYmZ2aXNiZGZpYmhzZG87Zm
@@ -12,11 +12,54 @@
       </public-key>
       <certificate-chains>
         <certificate-chain>
-          <name>my-client-cert</name>
-          ...
+          <name>my-rsa-chain</name>
+          <certificate>
+            ZKY1o2WURiR0lPNDB4ajlPb3JtREdsRUNCVTFvVGlrTmpBME1Rc3d
+            diR1V4RXpBUkJnTlZCQU1UQ2tOU1RDQkpjM04xWlhJd2daOHdEUVl
+            LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNrekNDQWZ5Z
+            KS29aSWh2Y04KQVFFQkJRQURnWTBBTUlHSkFvR0JBTXVvZmFPNEV3
+            0F3SUJBZ0lKQUpRT2t3bGpNK2pjTUEwR0NTcUdTSWIzRFFFQkJRVU
+            FNRFF4Q3pBSkJnTlYKQkFZVEFsVlRNUkF3RGdZRFZRUUtFd2RsZUd
+            GdGNHeGxNUk13RVFZRFZRUURFd3BEVWt3Z1NYTnpkV1Z5TUI0WApE
+            mMKTUE0R0ExVWREd0VCL3dRRUF3SUNCREFTQmdOVkhSTUJBZjhFQ0
+            RBR0FRSC9BZ0VBTUEwR0NTcUdTSWIzRFFFQgpCUVVBQTRHQkFMMmx
+            rWmFGNWcyaGR6MVNhZnZPbnBneHA4eG00SHRhbStadHpLazFlS3Bx
+            TXp4YXJCbFpDSHlLCklVbC9GVzRtV1RQS1VDeEtFTE40NEY2Zmk2d
+            c4d0tSSElkYW1WL0pGTmlQS0VXSTF4K1I1aDZmazcrQzQ1QXg1RWV
+            SWM2xZTgotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+          </certificate>
         </certificate-chain>
     </private-key>
  
+    <private-key>
+      <name>my-ec-user-key</name>
+      <algorithm>secp256r1</algorithm>
+      <public-key>
+        mJpdmhzZGZpbHVidjtvc2lkZmhidml1bHNkYmZ2aXNiZGZpYmhzZG87Zm
+        cztvaWRoc2RmZ2tqaHNkZmdramRzZnZzZGtmam5idnNvO2RmanZvO3NkZ
+        JvO3NkZ25iO29pLmR6Zgo=
+      </public-key>
+      <certificate-chains>
+        <certificate-chain>
+          <name>my-ec-chain</name>
+          <certificate>
+            0F3SUJBZ0lKQUpRT2t3bGpNK2pjTUEwR0NTcUdTSWIzRFFFQkJRVU
+            ZKY1o2WURiR0lPNDB4ajlPb3JtREdsRUNCVTFvVGlrTmpBME1Rc3d
+            diR1V4RXpBUkJnTlZCQU1UQ2tOU1RDQkpjM04xWlhJd2daOHdEUVl
+            LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNrekNDQWZ5Z
+            KS29aSWh2Y04KQVFFQkJRQURnWTBBTUlHSkFvR0JBTXVvZmFPNEV3
+            FNRFF4Q3pBSkJnTlYKQkFZVEFsVlRNUkF3RGdZRFZRUUtFd2RsZUd
+            GdGNHeGxNUk13RVFZRFZRUURFd3BEVWt3Z1NYTnpkV1Z5TUI0WApE
+            mMKTUE0R0ExVWREd0VCL3dRRUF3SUNCREFTQmdOVkhSTUJBZjhFQ0
+            RBR0FRSC9BZ0VBTUEwR0NTcUdTSWIzRFFFQgpCUVVBQTRHQkFMMmx
+            rWmFGNWcyaGR6MVNhZnZPbnBneHA4eG00SHRhbStadHpLazFlS3Bx
+            TXp4YXJCbFpDSHlLCklVbC9GVzRtV1RQS1VDeEtFTE40NEY2Zmk2d
+            c4d0tSSElkYW1WL0pGTmlQS0VXSTF4K1I1aDZmazcrQzQ1QXg1RWV
+            SWM2xZTgotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+          </certificate>
+        </certificate-chain>
+    </private-key>
+
     <private-key>
       <name>tpm-protected-key</name>
       <algorithm>sect571r1</algorithm>
@@ -210,16 +253,52 @@
     </trusted-certificate>
   </trusted-certificates>
 
+  <!-- trusted SSH host keys -->
   <trusted-ssh-host-keys>
-      <name>explicitly-trusted-ssh-server-host-keys</name>
+    <name>explicitly-trusted-ssh-host-keys</name>
+    <description>
+      Trusted SSH host keys used to authenticate SSH servers.
+      These host keys would be analogous to those stored in
+      a known_hosts file in OpenSSH.
+    </description>
     <trusted-host-key>
       <name>corp-fw1</name>
       <host-key>
-        ssh-rsa NGcEk3UE90cnNFVjRwTUNBd0VBQWFPQ0FSSXdnZ0VPCk1CMEdBMVVkRGd
         VEJiZ0JTWEdlbUEKMnhpRHVOTVkvVHFLNWd4cFJBZ1ZOYUU0cERZd05ER
+        NGcEk3UE90cnNFVjRwTUNBd0VBQWFPQ0FSSXdnZ0VPCk1CMEdBMVVkRGd
         WpiMjB2WlhoaGJYQnNaUzVqY215aU9L=
       </host-key>
     </trusted-host-key>
   </trusted-ssh-host-keys>
+
+  <!-- user credentials and associated authentication methods -->
+  <user-auth-credentials>
+    <username>admin</username>
+    <auth-method>
+      <priority>1</priority>
+      <certificate-chain>my-ec-chain</certificate-chain>
+      <certificate-chain>my-rsa-chain</certificate-chain>
+    </auth-method>
+    <auth-method>
+      <priority>2</priority>
+      <public-key>my-rsa-user-key</public-key>
+    </auth-method>
+  </user-auth-credentials>
+
+  <user-auth-credentials>
+    <username>tester</username>
+    <auth-method>
+      <priority>1</priority>
+      <cleartext-password>testing123</cleartext-password>
+    </auth-method>
+  </user-auth-credentials>
+
+  <user-auth-credentials>
+    <username>ldevid</username>
+    <auth-method>
+      <priority>1</priority>
+      <certificate-chain>my-ldevid-chain</certificate-chain>
+    </auth-method>
+  </user-auth-credentials>
 
 </keychain>
