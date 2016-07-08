@@ -4,7 +4,7 @@ REQUEST
   ['\' line wrapping added for formatting only]
   
   POST https://example.com/restconf/data/ietf-system-keychain:keychain/\
-  private-keys/generate-private-key HTTP/1.1
+  private-keys/load-private-key HTTP/1.1
   HOST: example.com
   Content-Type: application/yang.operation+xml
   
