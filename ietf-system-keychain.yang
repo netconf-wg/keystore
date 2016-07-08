@@ -168,8 +168,8 @@ module ietf-system-keychain {
               type string;
               description
                 "An arbitrary name for the certificate chain.  The
-                 name must be a unique across all private-keys, not
-                 just this within this private key.";
+                 name must be a unique across all private keys, not
+                 just within this private key.";
             }
             leaf-list certificate {
               type binary;
@@ -331,11 +331,15 @@ module ietf-system-keychain {
     list trusted-certificates {
       key name;
       description
-        "A list of trusted certificates.  Each list SHOULD be specific
-         to a purpose.  For instance, there could be one list for
-         authenticating NETCONF/RESTCONF client certificates, and
-         another list for authenticating manufacturer-signed data,
-         and yet another list for authenticated web servers.";
+        "A list of trusted certificates.  These certificates
+         can be used by a server to authenticate clients, or by clients
+         to authenticate servers.  The certificates may be endpoint
+         specific or for certificate authorities (to authenticate many
+         clients at once.  Each list of certificates SHOULD be specific
+         to a purpose, as the list as a whole may be referenced by other
+         modules.  For instance, a NETCONF server model might point to
+         a list of certificates to use when authenticating client 
+         certificates.";
       leaf name {
         type string;
         description
@@ -350,13 +354,18 @@ module ietf-system-keychain {
       list trusted-certificate {
         key name;
         description
-          "A trusted certificate for a specific use.";
+          "A trusted certificate for a specific use.  Note, this
+           'certificate' is a list in order to encode any 
+           associated intermediate certificates.";
         leaf name {
           type string;
           description
-            "An arbitrary name for this trusted certificate.";
+            "An arbitrary name for this trusted certificate. Must
+             be unique across all lists of trusted certificates
+             (not just this list) so that a leafref to it from
+             another module can resolve to unique values.";
         }
-        leaf certificate {
+        leaf certificate {  // rename to 'data'?
           type binary;
           description
             "An X.509 v3 certificate structure as specified by RFC
@@ -374,116 +383,141 @@ module ietf-system-keychain {
         }
       }
     }
-  }
 
-  list trusted-ssh-host-keys {
-    key name;
-    description
-      "A list of trusted SSH host keys.  The host keys in this list
-       would be used in a similar fashion to those in a known_hosts
-       file in OpenSSH.";
-    leaf name {
-      type string;
-      description
-        "An arbitrary name for this list of trusted SSH host keys.";
-    }
-    leaf description {
-      type string;
-      description
-        "An arbitrary description for this list of trusted SSH host
-         keys.";
-    }
-    list trusted-host-key {
+    list trusted-ssh-host-keys {
       key name;
       description
-        "A trusted host key.";
+        "A list of trusted host-keys.  These host-keys can be used
+         by clients to authenticate SSH servers.  The host-keys are
+         endpoint specific.  Each list of host-keys SHOULD be 
+         specific to a purpose, as the list as a whole may be
+         referenced by other modules.  For instance, a NETCONF
+         client model might point to a list of host-keys to use
+         when authenticating servers host-keys.";
       leaf name {
         type string;
         description
-          "The hostname or address of that owns this host key.
-           The SSH client SHOULD verify the hostname or address of
-           the host presenting this key against the value of this leaf,
-           whenever the former can reliably determined.";
+          "An arbitrary name for this list of trusted SSH host keys.";
       }
-      leaf host-key {
-        mandatory true;
+      leaf description {
+        type string;
         description
-          "An OneAsymmetricKey 'publicKey' structure as specified
-           by RFC 5958, Section 2 encoded using the ASN.1 
-           distinguished encoding rules (DER), as specified
-           in ITU-T X.690.";
-        reference
-          "RFC 5958:
-              Asymmetric Key Packages
-           ITU-T X.690:
-              Information technology – ASN.1 encoding rules:
-              Specification of Basic Encoding Rules (BER), 
-              Canonical Encoding Rules (CER) and Distinguished
-              Encoding Rules (DER).";
+          "An arbitrary description for this list of trusted SSH host
+           keys.";
       }
-    }
-  }
+      list trusted-host-key {
+        key name;
+        description
+          "A trusted host key.";
+        leaf name {
+          type string;
+          description
+            "An arbitrary name for this trusted host-key. Must be
+             unique across all lists of trusted host-keys (not just
+             this list) so that a leafref to it from another module
+             can resolve to unique values.
 
-  list user-auth-credentials {
-    key username;
-    description
-      "A user and the list of methods of authenticating as said user.";
-    leaf username {
-      type string;
-      description
-        "The username of this identity.  This will be the username used
-         to log into a NETCONF/RESTCONF server.";
+             Note that, for when the SSH client is able to listen 
+             for call-home connections as well, there is no reference
+             identifier (e.g., hostname, IP address, etc.) that it
+             can use to uniquely identify the server with.  The
+             call-home draft recommends SSH servers use X.509v3
+             certificates (RFC6187) when calling home.";
+        }
+        leaf host-key {  // rename to 'data'?
+          type binary;
+          mandatory true;
+          description
+            "An OneAsymmetricKey 'publicKey' structure as specified
+             by RFC 5958, Section 2 encoded using the ASN.1 
+             distinguished encoding rules (DER), as specified
+             in ITU-T X.690.";
+          reference
+            "RFC 5958:
+                Asymmetric Key Packages
+             ITU-T X.690:
+                Information technology – ASN.1 encoding rules:
+                Specification of Basic Encoding Rules (BER), 
+                Canonical Encoding Rules (CER) and Distinguished
+                Encoding Rules (DER).";
+        }
+      }
     }
-    list auth-method {
-      key priority;
+
+/*
+Are the auth credentials truly limited to SSH?  
+Could they be used by an HTTP client to log into an HTTP server?  
+If truly just for SSH, maybe rename?
+*/
+    container user-auth-credentials { 
       description
-        "A method of authenticating as this user.";
-      leaf priority {
-        type uint8;
+        "A list of user authentication credentials that can be used
+         by an SSH client to log into an SSH server, using any of 
+         the supported authentication methods (e.g., password, 
+         public key, client certificate, etc.).";
+      list user-auth-credential {
+        key username;
         description
-          "When multiple authentication methods in this list are
-           supported by the server, the one with the lowest priority
-           value will be the one that is used.";
-      }
-      choice auth-type {
-        description
-          "The authentication type.";
-        leaf-list certificate {
-          ordered-by user;
-          type leafref {
-            path "/keychain/private-keys/private-key/"
-                 + "certificate-chains/certificate-chain/name";
-          }
-          description
-            "A list of references to certificates that can be used for
-             user authentication.  When multiple certificates in this
-             list supported by the server, the one that comes
-             before the others in the leaf-list will be used.";
-        }
-        leaf-list public-key {
-          ordered-by user;
-          type leafref {
-            path "/keychain/private-keys/private-key/name";
-          }
-          description
-            "A list of references to public keys that can be used for
-             user authentication.  When multiple public keys in this
-             list supported by the server, the one that comes
-             before the others in the leaf-list will be used.";
-        }
-        leaf ciphertext-password {
+          "The authentication credentials for a specific user.";
+        leaf username {
           type string;
           description
-            "An ciphertext password.  The method of encipherment and
-             how that method can be determined from this string is
-             implementation-specific.";
+            "The username of this user.  This will be the username
+             used, for instance, to log into an SSH server.";
         }
-        leaf cleartext-password {
-          type string;
+        list auth-method {
+          key priority;
           description
-            "An cleartext password.";
+            "A method of authenticating as this user.";
+          leaf priority {
+            type uint8;
+            description
+              "When multiple authentication methods in this list are
+               supported by the server, the one with the lowest priority
+               value will be the one that is used.";
+          }
+          choice auth-type {
+            description
+              "The authentication type.";
+            leaf-list certificate {
+              type leafref {
+                path "/keychain/private-keys/private-key/"
+                     + "certificate-chains/certificate-chain/name";
+              }
+              ordered-by user;
+              description
+                "A list of references to certificates that can be used for
+                 user authentication.  When multiple certificates in this
+                 list supported by the server, the one that comes
+                 before the others in the leaf-list will be used.";
+            }
+            leaf-list public-key {
+              type leafref {
+                path "/keychain/private-keys/private-key/name";
+              }
+              ordered-by user;
+              description
+                "A list of references to public keys that can be used for
+                 user authentication.  When multiple public keys in this
+                 list supported by the server, the one that comes
+                 before the others in the leaf-list will be used.";
+            }
+            leaf ciphertext-password {
+              type string;
+              description
+                "An ciphertext password.  The method of encipherment and
+                 how that method can be determined from this string is
+                 implementation-specific.";
+            }
+            leaf cleartext-password {
+              type string;
+              description
+                "An cleartext password.";
+            }
+          }
         }
       }
+    }
   }
 
   notification certificate-expiration {
@@ -507,5 +541,6 @@ module ietf-system-keychain {
         "Identifies the expiration date on the certificate.";
     }
   }
+
 }
 

@@ -40,6 +40,12 @@
                 <email>kwatsen@juniper.net</email>
             </address>
         </author>
+        <author initials="G.W." surname="Wu" fullname="Gary Wu">
+            <organization>Cisco Networks</organization>
+            <address>
+                <email>garywu@cisco.com</email>
+            </address>
+        </author>
         <date/>
         <area>Operations</area>
         <workgroup>NETCONF Working Group</workgroup>
@@ -504,6 +510,8 @@ I removed all the NACM statements in the new modules
               <t>Removed key-usage parameter from generate-private-key action.</t>
               <t>Now /private-keys/private-key/certificates/certificate/name
               must be globally unique (unique across all private keys).</t>
+              <t>Added top-level 'trusted-ssh-host-keys' and 'user-auth-credentials'
+              to support SSH client modules.</t>
             </list>
           </t>
         </section>

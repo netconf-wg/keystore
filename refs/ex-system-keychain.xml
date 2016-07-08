@@ -29,6 +29,7 @@
             SWM2xZTgotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
           </certificate>
         </certificate-chain>
+      </certificate-chains>
     </private-key>
  
     <private-key>
@@ -58,6 +59,7 @@
             SWM2xZTgotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
           </certificate>
         </certificate-chain>
+      </certificate-chains>
     </private-key>
 
     <private-key>
@@ -197,7 +199,7 @@
     </trusted-certificate>
   </trusted-certificates>
 
-  <!-- trust anchors for netconf/restconf clients -->
+  <!-- trust anchors (CA certs) for netconf/restconf clients -->
   <trusted-certificates>
     <name>deployment-specific-ca-certs</name>
     <description>
@@ -273,32 +275,32 @@
 
   <!-- user credentials and associated authentication methods -->
   <user-auth-credentials>
-    <username>admin</username>
-    <auth-method>
-      <priority>1</priority>
-      <certificate-chain>my-ec-chain</certificate-chain>
-      <certificate-chain>my-rsa-chain</certificate-chain>
-    </auth-method>
-    <auth-method>
-      <priority>2</priority>
-      <public-key>my-rsa-user-key</public-key>
-    </auth-method>
-  </user-auth-credentials>
-
-  <user-auth-credentials>
-    <username>tester</username>
-    <auth-method>
-      <priority>1</priority>
-      <cleartext-password>testing123</cleartext-password>
-    </auth-method>
-  </user-auth-credentials>
-
-  <user-auth-credentials>
-    <username>ldevid</username>
-    <auth-method>
-      <priority>1</priority>
-      <certificate-chain>my-ldevid-chain</certificate-chain>
-    </auth-method>
+    <user-auth-credential>
+      <username>admin</username>
+      <auth-method>
+        <priority>1</priority>
+        <certificate-chain>my-ec-chain</certificate-chain>
+        <certificate-chain>my-rsa-chain</certificate-chain>
+      </auth-method>
+      <auth-method>
+        <priority>2</priority>
+        <public-key>my-rsa-user-key</public-key>
+      </auth-method>
+    </user-auth-credential>
+    <user-auth-credential>
+      <username>tester</username>
+      <auth-method>
+        <priority>1</priority>
+        <cleartext-password>testing123</cleartext-password>
+      </auth-method>
+    </user-auth-credential>
+    <user-auth-credential>
+      <username>ldevid</username>
+      <auth-method>
+        <priority>1</priority>
+        <certificate-chain>my-ldevid-chain</certificate-chain>
+      </auth-method>
+    </user-auth-credential>
   </user-auth-credentials>
 
 </keychain>
