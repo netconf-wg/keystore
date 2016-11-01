@@ -1,9 +1,9 @@
 
 echo "Testing YANG syntax..."
-pyang --ietf --max-line-length=70 -p ../ ../ietf-system-keychain\@*.yang
+pyang --ietf --max-line-length=70 -p ../ ../ietf-keystore\@*.yang
 
-echo "Testing keychain module..."
-./validate.sh ietf-system-keychain\@*.yang ex-system-keychain.xml
-#./validate.sh ietf-system-keychain\@*.yang ex-system-keychain-rpc-gpk-restconf-json.xml
-#./validate.sh ietf-system-keychain\@*.yang ex-system-keychain-rpc-gcsr-netconf.xml
+echo "Testing keystore module..."
+./validate.sh ietf-keystore\@*.yang ex-keystore.xml
+#./validate.sh ietf-keystore\@*.yang ex-keystore-rpc-gpk-restconf-json.xml
+#./validate.sh ietf-keystore\@*.yang ex-keystore-rpc-gcsr-netconf.xml
 

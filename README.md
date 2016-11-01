@@ -1,12 +1,12 @@
-# draft-ietf-netconf-system-keychain
+# draft-ietf-netconf-keystore
 
 This repository is for the development of a IETF draft for the [NETCONF working group](http://datatracker.ietf.org/wg/netconf/charter/).
 
 ## Links
 
-* IETF Page: https://tools.ietf.org/html/draft-ietf-netconf-system-keychain
+* IETF Page: https://tools.ietf.org/html/draft-ietf-netconf-keystore
 * Mailing List: https://www.ietf.org/mailman/listinfo/netconf
-* Issue Tracking: https://github.com/netconf-wg/system-keychain/issues
+* Issue Tracking: https://github.com/netconf-wg/keystore/issues
 
 
 
