@@ -39,7 +39,7 @@ clean:
 	-rm -f $(draft).txt $(draft).html index.html
 	-rm -f $(next).txt $(next).html
 	-rm -f $(draft)-[0-9][0-9].xml
-	-rm -f ietf-keystore\@$(shell date +%Y-%m-%d).yang
+	-rm -f ietf-keystore\@20*.yang
 ifeq (md,$(draft_type))
 	-rm -f $(draft).xml
 endif

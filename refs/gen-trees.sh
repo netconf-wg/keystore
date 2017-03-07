@@ -1,6 +1,3 @@
 
-pyang -p ../ -f tree ../ietf-keystore@*.yang > ietf-keystore-tree.txt.tmp
+pyang -p ../ -f tree --tree-line-length 71 ../ietf-keystore@*.yang > ietf-keystore-tree.txt
 
-fold -w 71 ietf-keystore-tree.txt.tmp > ietf-keystore-tree.txt
-
-rm *-tree.txt.tmp
