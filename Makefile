@@ -39,7 +39,7 @@ clean:
 	-rm -f $(draft).txt $(draft).html index.html
 	-rm -f $(next).txt $(next).html
 	-rm -f $(draft)-[0-9][0-9].xml
-	-rm -f ietf-keystore\@20*.yang
+	-rm -f ietf-*\@20*.yang
 	-rm -f ex-keystore-usage\@20*.yang
 ifeq (md,$(draft_type))
 	-rm -f $(draft).xml
@@ -52,9 +52,10 @@ $(next).xml: $(draft).xml
 	sed -e"s/$(basename $<)-latest/$(basename $@)/" -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" $< > $@
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ietf-keystore.yang > ietf-keystore\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ex-keystore-usage.yang > ex-keystore-usage\@$(shell date +%Y-%m-%d).yang
+	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../crypto-types/ietf-crypto-types.yang > ietf-crypto-types\@$(shell date +%Y-%m-%d).yang
 	cd refs; ./validate-all.sh; ./gen-trees.sh; cd ..;
 	./.insert-figures.sh $@ > tmp; mv tmp $@
-	rm refs/*-tree.txt
+	rm -f refs/*-tree*.txt
 
 .INTERMEDIATE: $(draft).xml
 %.xml: %.md
