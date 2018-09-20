@@ -24,11 +24,17 @@ yanglint ../ex-keystore-usage\@*.yang
 echo "Testing ex-keystore-usage.xml..."
 yanglint -m -s ../ex-keystore-usage\@*.yang ../ietf-*\@*.yang ./ietf-origin.yang  ex-keystore-usage.xml ex-keystore.xml
 
-echo "Testing ex-keystore-gpk-rpc.xml..."
-yanglint -s -t auto ../ietf-*\@*.yang ex-keystore-gpk-rpc.xml
+echo "Testing ex-keystore-ghk-rpc.xml..."
+yanglint -s -t auto ../ietf-*\@*.yang ex-keystore-ghk-rpc.xml
 
-echo "Testing ex-keystore-gpk-rpc-reply.xml..."
-yanglint -s -t auto ../ietf-*\@*.yang ex-keystore-gpk-rpc-reply.xml ex-keystore-gpk-rpc.xml
+echo "Testing ex-keystore-ghk-rpc-reply.xml..."
+yanglint -s -t auto ../ietf-*\@*.yang ex-keystore-ghk-rpc-reply.xml ex-keystore-ghk-rpc.xml
+
+echo "Testing ex-keystore-ihk-rpc.xml..."
+yanglint -s -t auto ../ietf-*\@*.yang ex-keystore-ihk-rpc.xml
+
+echo "Testing ex-keystore-ihk-rpc-reply.xml..."
+yanglint -s -t auto ../ietf-*\@*.yang ex-keystore-ihk-rpc-reply.xml ex-keystore-ihk-rpc.xml
 
 echo "Testing ex-keystore-gcsr-rpc.xml..."
 yanglint -s -t auto ../ietf-*\@*.yang ex-keystore-gcsr-rpc.xml

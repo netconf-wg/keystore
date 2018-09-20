@@ -26,7 +26,7 @@ print_usage() {
 reversed=0
 infile=""
 outfile=""
-maxcol=69  # default, may be overridden by param
+maxcol=70  # default, may be overridden by param
 header="\n[Note: '\' line wrapping for formatting only]\n\n"
 
 
@@ -40,8 +40,8 @@ fold_it() {
   fi
 
   echo -ne "$header" > $outfile
-  foldcol=`expr "$maxcol" - 1` # spacer for the inserted '\' char
-  gsed "s/\(.\{$foldcol\}\)/\1\\\\\n/" < $infile >> $outfile
+  foldcol=`expr "$maxcol" - 2` # for the inserted '\' & '\n' chars
+  gsed "/.\{$maxcol\}/s/\(.\{$foldcol\}\)/\1\\\\\n/g" < $infile >> $outfile
   return 0
 }
 
@@ -94,22 +94,17 @@ process_input() {
   done
 
   if [ -z "$infile" ]; then
-    echo "error: infile parameter missing."
+    echo
+    echo "Error: infile parameter missing (use -h for help)"
+    echo
     exit 1
   fi
 
   if [ -z "$outfile" ]; then
-    echo "error: outfile parameter missing."
+    echo
+    echo "Error: outfile parameter missing (use -h for help)"
+    echo
     exit 1
-  fi
-
-  if [ ! -f "$infile" ]; then
-    echo "error: infile \"$infile\" does not exist."
-    exit 1
-  fi
-
-  if [ -f "$outfile" ]; then
-    echo "warning: outfile \"$outfile\" already exists."
   fi
 }
 
