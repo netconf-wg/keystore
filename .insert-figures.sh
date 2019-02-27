@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#FOLD=fold-artwork.sh
+FOLD=../../netmod-wg/artwork-folding/fold-artwork.sh
+
 # make sure input params are good
 if [ "$#" == "0" ]; then
   echo "Usage: $0 file[,fold-length]"
@@ -18,9 +21,9 @@ while ( grep INSERT_TEXT_FROM_FILE .tmp.new.txt >> /dev/null ); do
   if [ `echo $file | grep ","` ]; then
     col=`echo $file | sed 's/.*,//'`
     file=`echo $file | sed 's/,.*//'`
-    ./.fold-artwork.sh -c $col -i $file -o $file.potentially-folded
+    $FOLD -c $col -i $file -o $file.potentially-folded
   else
-    ./.fold-artwork.sh -i $file -o $file.potentially-folded
+    $FOLD -i $file -o $file.potentially-folded
   fi
 
   cat .tmp.pre.txt $file.potentially-folded .tmp.post.txt > .tmp.new.txt
