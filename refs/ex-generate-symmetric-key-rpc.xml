@@ -1,0 +1,15 @@
+<rpc message-id="101"
+  xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <action xmlns="urn:ietf:params:xml:ns:yang:1">
+    <keystore xmlns="urn:ietf:params:xml:ns:yang:ietf-keystore">
+      <symmetric-keys>
+        <generate-symmetric-key>
+          <algorithm>aes-256-cbc</algorithm>
+          <encrypt-with>
+            <asymmetric-key-ref>hidden-asymmetric-key</asymmetric-key-ref>
+          </encrypt-with>
+        </generate-symmetric-key>
+      </symmetric-keys>
+    </keystore>
+  </action>
+</rpc>

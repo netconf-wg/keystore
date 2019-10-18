@@ -1,0 +1,11 @@
+<rpc-reply message-id="101"
+  xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+  xmlns:ks="urn:ietf:params:xml:ns:yang:ietf-keystore">
+  <!--<data> yanglint validation fails -->
+    <ks:algorithm>aes-256-cbc</ks:algorithm>
+    <ks:encrypted-key>
+      <ks:asymmetric-key-ref>hidden-asymmetric-key</ks:asymmetric-key-ref>
+      <ks:value>base64encodedvalue==</ks:value>
+    </ks:encrypted-key>
+  <!--</data> yanglint validation fails -->
+</rpc-reply>
