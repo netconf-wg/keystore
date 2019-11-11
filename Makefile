@@ -40,6 +40,7 @@ clean:
 	-rm -f $(draft)-[0-9][0-9].txt
 	-rm -f $(draft)-[0-9][0-9].html
 	-rm -f ietf-*\@20*.yang
+	-rm -f iana-*\@20*.yang
 	-rm -f ex-keystore-usage\@20*.yang
 ifeq (md,$(draft_type))
 	-rm -f $(draft).xml
@@ -53,6 +54,10 @@ $(next).xml: $(draft).xml
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ietf-keystore.yang > ietf-keystore\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ex-keystore-usage.yang > ex-keystore-usage\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../crypto-types/ietf-crypto-types.yang > ietf-crypto-types\@$(shell date +%Y-%m-%d).yang
+	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../crypto-types/iana-symmetric-algs.yang > iana-symmetric-algs\@$(shell date +%Y-%m-%d).yang
+	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../crypto-types/iana-asymmetric-algs.yang > iana-asymmetric-algs\@$(shell date +%Y-%m-%d).yang
+	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../crypto-types/iana-hash-algs.yang > iana-hash-algs\@$(shell date +%Y-%m-%d).yang
+
 	cd refs; ./validate-all.sh; ./gen-trees.sh; cd ..;
 	./.insert-figures.sh $@ > tmp; mv tmp $@
 	rm -f refs/*-tree*.txt
