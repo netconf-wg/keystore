@@ -1,11 +1,11 @@
 #!/bin/bash
 
 echo "Testing ietf-keystore.yang (pyang)..."
-pyang --ietf --max-line-length=69 -p ../ ../ietf-keystore\@*.yang
-pyang --canonical -p ../ ../ietf-keystore\@*.yang
+pyang --ietf --max-line-length=69 -p ../ ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang
+pyang --canonical -p ../ ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang
 
 echo "Testing ietf-keystore.yang (yanglint)..."
-yanglint ../ietf-keystore\@*.yang
+yanglint ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang
 
 echo "Testing ex-keystore.xml..."
 yanglint -s ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang ./ietf-origin.yang ex-keystore.xml

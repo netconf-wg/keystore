@@ -3,10 +3,10 @@
   xmlns:ks="urn:ietf:params:xml:ns:yang:ietf-keystore"
   xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">
   <!--<data> yanglint validation fails -->
-    <ks:algorithm>secp256r1</ks:algorithm>
-    <ks:public-key-format>ct:subject-public-key-info-format</ks:public-key-format>
-    <ks:public-key>base64encodedvalue==</ks:public-key>
-    <ks:private-key-format>ct:encrypted-one-asymmetric-key-format</ks:private-key-format>
+    <ct:algorithm>secp256r1</ct:algorithm>
+    <ct:public-key-format>ct:subject-public-key-info-format</ct:public-key-format>
+    <ct:public-key>base64encodedvalue==</ct:public-key>
+    <ct:private-key-format>ct:encrypted-one-asymmetric-key-format</ct:private-key-format>
     <ks:encrypted-private-key>
       <ks:symmetric-key-ref>encrypted-symmetric-key</ks:symmetric-key-ref>
       <ks:value>base64encodedvalue==</ks:value>
