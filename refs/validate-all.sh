@@ -56,23 +56,23 @@ command="yanglint -s -m ../ex-keystore-usage\@*.yang ../ietf-keystore\@*.yang ..
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
-printf "Testing ex-generate-symmetric-key-rpc.xml..."
-command="yanglint -s -t auto -O ex-keystore.xml ../ietf-*\@*.yang ex-generate-symmetric-key-rpc.xml"
-run_unix_cmd $LINENO "$command" 0
-printf "okay.\n"
-
-printf "Testing ex-generate-symmetric-key-rpc-reply.xml..."
-command="yanglint -s -t auto -O ex-keystore.xml ../ietf-*\@*.yang ex-generate-symmetric-key-rpc-reply.xml ex-generate-symmetric-key-rpc.xml"
-run_unix_cmd $LINENO "$command" 0
-printf "okay.\n"
-
-printf "Testing ex-generate-asymmetric-key-rpc.xml..."
-command="yanglint -s -t auto -O ex-keystore.xml ../ietf-*\@*.yang ex-generate-asymmetric-key-rpc.xml"
-run_unix_cmd $LINENO "$command" 0
-printf "okay.\n"
-
-printf "Testing ex-generate-asymmetric-key-rpc-reply.xml..."
-command="yanglint -s -t auto -O ex-keystore.xml ../ietf-*\@*.yang ex-generate-asymmetric-key-rpc-reply.xml ex-generate-asymmetric-key-rpc.xml"
-run_unix_cmd $LINENO "$command" 0
-printf "okay.\n"
+#printf "Testing ex-generate-symmetric-key-rpc.xml..."
+#command="yanglint -s -t auto -O ex-keystore.xml ../ietf-*\@*.yang ex-generate-symmetric-key-rpc.xml"
+#run_unix_cmd $LINENO "$command" 0
+#printf "okay.\n"
+#
+#printf "Testing ex-generate-symmetric-key-rpc-reply.xml..."
+#command="yanglint -s -t auto -O ex-keystore.xml ../ietf-*\@*.yang ex-generate-symmetric-key-rpc-reply.xml ex-generate-symmetric-key-rpc.xml"
+#run_unix_cmd $LINENO "$command" 0
+#printf "okay.\n"
+#
+#printf "Testing ex-generate-asymmetric-key-rpc.xml..."
+#command="yanglint -s -t auto -O ex-keystore.xml ../ietf-*\@*.yang ex-generate-asymmetric-key-rpc.xml"
+#run_unix_cmd $LINENO "$command" 0
+#printf "okay.\n"
+#
+#printf "Testing ex-generate-asymmetric-key-rpc-reply.xml..."
+#command="yanglint -s -t auto -O ex-keystore.xml ../ietf-*\@*.yang ex-generate-asymmetric-key-rpc-reply.xml ex-generate-asymmetric-key-rpc.xml"
+#run_unix_cmd $LINENO "$command" 0
+#printf "okay.\n"
 
