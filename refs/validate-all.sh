@@ -32,7 +32,22 @@ run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 printf "Testing ex-keystore.xml..."
-command="yanglint -s ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang ./ietf-origin.yang ex-keystore.xml"
+command="yanglint -s ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang ex-keystore.xml"
+run_unix_cmd $LINENO "$command" 0
+printf "okay.\n"
+
+printf "Testing ex-keystore-default-operational.xml..."
+command="yanglint -s ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang ./ietf-origin.yang ex-keystore-default-operational.xml"
+run_unix_cmd $LINENO "$command" 0
+printf "okay.\n"
+
+printf "Testing ex-keystore-default-running.xml..."
+command="yanglint -s ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang ex-keystore-default-running.xml"
+run_unix_cmd $LINENO "$command" 0
+printf "okay.\n"
+
+printf "Testing ex-keystore-default-operational-applied.xml..."
+command="yanglint -s ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang ./ietf-origin.yang ex-keystore-default-operational-applied.xml"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
