@@ -51,10 +51,6 @@ command="yanglint -s ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang ./iet
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
-#printf "Testing ex-keystore-ce-notification.xml..."
-#echo -e 'setns a=urn:ietf:params:xml:ns:neteonf:notification:1.0\nsetns b=urn:ietf:params:xml:ns:yang:ietf-keystore\ncat //a:notification/b:keystore' | xmllint --shell ex-keystore-ce-notification.xml | sed -e '/^\/.*/d' -e '/^ *$/d' > yanglint-notification.xml
-#yanglint -s -t notif -r ex-keystore.xml ../ietf-*\@*.yang yanglint-notification.xml
-#rm yanglint-notification.xml
 
 printf "Testing ex-keystore-usage.yang (pyang)..."
 command="pyang --lint --max-line-length=69 -p ../ ../ex-keystore-usage\@*.yang"
@@ -91,3 +87,9 @@ printf "okay.\n"
 #run_unix_cmd $LINENO "$command" 0
 #printf "okay.\n"
 
+printf "Testing ex-notification-ce.xml..."
+echo -e 'setns a=urn:ietf:params:xml:ns:netconf:notification:1.0\nsetns b=urn:ietf:params:xml:ns:yang:ietf-keystore\ncat //a:notification/b:keystore' | xmllint --shell ex-notification-ce.xml | sed -e '/^\/.*/d' -e '/^ *$/d' > yanglint-notification.xml
+command="yanglint -s -t notif -r ex-keystore.xml ../ietf-*\@*.yang yanglint-notification.xml"
+run_unix_cmd $LINENO "$command" 0
+printf "okay.\n"
+rm yanglint-notification.xml
