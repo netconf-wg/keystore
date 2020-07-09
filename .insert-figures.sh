@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#FOLD=fold-artwork.sh
-FOLD=../../netmod-wg/artwork-folding/rfcfold
+#FOLD=rfcfold
+FOLD=../../ietf-tools/rfcfold/rfcfold
 
 # make sure input params are good
 if [ "$#" == "0" ]; then

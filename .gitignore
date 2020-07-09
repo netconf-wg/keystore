@@ -3,5 +3,7 @@
 *.swp
 draft-*-[0-9][0-9].html
 draft-*-[0-9][0-9].xml
+draft-*-[0-9][0-9].v2v3.xml
 draft-*-[0-9][0-9].txt
 *\@20*
+metadata.min.js

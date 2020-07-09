@@ -7,7 +7,7 @@
         <name>hidden-asymmetric-key</name>
         <certificates>
           <certificate>
-            <name>my-xdevid-cert</name>
+            <name>my-ldevid-cert</name>
             <certificate-expiration>
               <expiration-date>2018-08-05T14:18:53-05:00</expiration-date>
             </certificate-expiration>
