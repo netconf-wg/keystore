@@ -1,12 +1,11 @@
 echo "Generating tree diagrams..."
 
-#pyang -p ../ -f tree --tree-line-length 69 --tree-print-groupings ../ietf-keystore@*.yang > ietf-keystore-tree.txt
-#pyang -p ../ -f tree --tree-line-length 69 --tree-print-groupings --tree-no-expand-uses ../ietf-keystore@*.yang > ietf-keystore-tree-no-expand.txt
-#pyang -p ../ -f tree --tree-line-length 69 --tree-print-groupings ../ex-keystore-usage@*.yang > ex-keystore-usage-tree.txt
+pyang -p ../ -f tree --tree-line-length 69 --tree-print-groupings ../ietf-keystore@*.yang > ietf-keystore-tree.txt
+pyang -p ../ -f tree --tree-line-length 69 --tree-print-groupings --tree-no-expand-uses ../ietf-keystore@*.yang > ietf-keystore-tree-no-expand.txt
 
+pyang -p ../ -f tree --tree-line-length 69 --tree-print-groupings ../ex-keystore-usage@*.yang > ex-keystore-usage-tree.txt
+pyang -p ../ -f tree --tree-line-length 69 --tree-print-groupings --tree-no-expand-uses  ../ex-keystore-usage@*.yang > ex-keystore-usage-tree-no-expand.txt
 
-pyang -p ../ -f tree --tree-line-length 69 ../ietf-keystore@*.yang > ietf-keystore-tree.txt
-pyang -p ../ -f tree --tree-line-length 69 ../ex-keystore-usage@*.yang > ex-keystore-usage-tree.txt
 
 extract_grouping_with_params() {
   # $1 name of grouping
