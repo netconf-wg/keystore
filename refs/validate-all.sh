@@ -20,9 +20,9 @@ run_unix_cmd() {
 }
 
 printf "Testing ietf-keystore.yang (pyang)..."
-command="pyang -Werror --ietf --max-line-length=69 -p ../ ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang"
+command="pyang --strict -Werror --ietf --max-line-length=69 -p ../ ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang"
 run_unix_cmd $LINENO "$command" 0
-command="pyang --canonical -p ../ ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang"
+command="pyang --strict --canonical -p ../ ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
@@ -53,7 +53,7 @@ printf "okay.\n"
 
 
 printf "Testing ex-keystore-usage.yang (pyang)..."
-command="pyang --lint --max-line-length=69 -p ../ ../ex-keystore-usage\@*.yang"
+command="pyang --strict --lint --max-line-length=69 -p ../ ../ex-keystore-usage\@*.yang"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
