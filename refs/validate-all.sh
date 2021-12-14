@@ -32,22 +32,22 @@ run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 printf "Testing ex-keystore.xml..."
-command="yanglint -s ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang ex-keystore.xml"
+command="yanglint ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang ex-keystore.xml"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 printf "Testing ex-keystore-default-operational.xml..."
-command="yanglint -s ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang ./ietf-origin.yang ex-keystore-default-operational.xml"
+command="yanglint ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang ./ietf-origin.yang ex-keystore-default-operational.xml"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 printf "Testing ex-keystore-default-running.xml..."
-command="yanglint -s ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang ex-keystore-default-running.xml"
+command="yanglint ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang ex-keystore-default-running.xml"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 printf "Testing ex-keystore-default-operational-applied.xml..."
-command="yanglint -s ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang ./ietf-origin.yang ex-keystore-default-operational-applied.xml"
+command="yanglint ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang ./ietf-origin.yang ex-keystore-default-operational-applied.xml"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
@@ -63,33 +63,33 @@ run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 printf "Testing ex-keystore-usage.xml..."
-command="yanglint -s -m ../ex-keystore-usage\@*.yang ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang ./ietf-origin.yang  ex-keystore-usage.xml ex-keystore.xml"
+command="yanglint -m ../ex-keystore-usage\@*.yang ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang ./ietf-origin.yang  ex-keystore-usage.xml ex-keystore.xml"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 #printf "Testing ex-generate-symmetric-key-rpc.xml..."
-#command="yanglint -s -t auto -O ex-keystore.xml ../ietf-*\@*.yang ex-generate-symmetric-key-rpc.xml"
+#command="yanglint -t auto -O ex-keystore.xml ../ietf-*\@*.yang ex-generate-symmetric-key-rpc.xml"
 #run_unix_cmd $LINENO "$command" 0
 #printf "okay.\n"
 #
 #printf "Testing ex-generate-symmetric-key-rpc-reply.xml..."
-#command="yanglint -s -t auto -O ex-keystore.xml ../ietf-*\@*.yang ex-generate-symmetric-key-rpc-reply.xml ex-generate-symmetric-key-rpc.xml"
+#command="yanglint -t auto -O ex-keystore.xml ../ietf-*\@*.yang ex-generate-symmetric-key-rpc-reply.xml ex-generate-symmetric-key-rpc.xml"
 #run_unix_cmd $LINENO "$command" 0
 #printf "okay.\n"
 #
 #printf "Testing ex-generate-asymmetric-key-rpc.xml..."
-#command="yanglint -s -t auto -O ex-keystore.xml ../ietf-*\@*.yang ex-generate-asymmetric-key-rpc.xml"
+#command="yanglint -t auto -O ex-keystore.xml ../ietf-*\@*.yang ex-generate-asymmetric-key-rpc.xml"
 #run_unix_cmd $LINENO "$command" 0
 #printf "okay.\n"
 #
 #printf "Testing ex-generate-asymmetric-key-rpc-reply.xml..."
-#command="yanglint -s -t auto -O ex-keystore.xml ../ietf-*\@*.yang ex-generate-asymmetric-key-rpc-reply.xml ex-generate-asymmetric-key-rpc.xml"
+#command="yanglint -t auto -O ex-keystore.xml ../ietf-*\@*.yang ex-generate-asymmetric-key-rpc-reply.xml ex-generate-asymmetric-key-rpc.xml"
 #run_unix_cmd $LINENO "$command" 0
 #printf "okay.\n"
 
 printf "Testing ex-notification-ce.xml..."
 echo -e 'setns a=urn:ietf:params:xml:ns:netconf:notification:1.0\nsetns b=urn:ietf:params:xml:ns:yang:ietf-keystore\ncat //a:notification/b:keystore' | xmllint --shell ex-notification-ce.xml | sed -e '/^\/.*/d' -e '/^ *$/d' > yanglint-notification.xml
-command="yanglint -s -t notif -r ex-keystore.xml ../ietf-*\@*.yang yanglint-notification.xml"
+command="yanglint -t notif -r ex-keystore.xml ../ietf-*\@*.yang yanglint-notification.xml"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 rm yanglint-notification.xml

@@ -5,11 +5,11 @@
   <!--<data> yanglint validation fails -->
     <ct:algorithm>secp256r1</ct:algorithm>
     <ct:public-key-format>ct:subject-public-key-info-format</ct:public-key-format>
-    <ct:public-key>base64encodedvalue==</ct:public-key>
+    <ct:public-key>BASE64VALUE=</ct:public-key>
     <ct:private-key-format>ct:encrypted-one-asymmetric-key-format</ct:private-key-format>
     <ks:encrypted-private-key>
       <ks:symmetric-key-ref>encrypted-symmetric-key</ks:symmetric-key-ref>
-      <ks:value>base64encodedvalue==</ks:value>
+      <ks:value>BASE64VALUE=</ks:value>
     </ks:encrypted-private-key>
   <!--</data> yanglint validation fails -->
 </rpc-reply>

@@ -7,7 +7,7 @@
     <ct:key-format>ct:encrypted-one-symmetric-key-format</ct:key-format>
     <ks:encrypted-key>
       <ks:asymmetric-key-ref>hidden-asymmetric-key</ks:asymmetric-key-ref>
-      <ks:value>base64encodedvalue==</ks:value>
+      <ks:value>BASE64VALUE=</ks:value>
     </ks:encrypted-key>
   <!--</data> yanglint validation fails -->
 </rpc-reply>
