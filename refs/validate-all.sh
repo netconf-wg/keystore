@@ -32,7 +32,7 @@ run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 printf "Testing ex-keystore.xml..."
-command="yanglint ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang ex-keystore.xml"
+command="yanglint --features=ietf-crypto-types:hidden-keys,one-symmetric-key-format,symmetric-key-encryption,cms-enveloped-data-format,one-asymmetric-key-format,private-key-encryption,cms-encrypted-data-format --features=ietf-keystore:central-keystore-supported,symmetric-keys,asymmetric-keys ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang ex-keystore.xml"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
@@ -89,7 +89,7 @@ printf "okay.\n"
 
 printf "Testing ex-notification-ce.xml..."
 echo -e 'setns a=urn:ietf:params:xml:ns:netconf:notification:1.0\nsetns b=urn:ietf:params:xml:ns:yang:ietf-keystore\ncat //a:notification/b:keystore' | xmllint --shell ex-notification-ce.xml | sed -e '/^\/.*/d' -e '/^ *$/d' > yanglint-notification.xml
-command="yanglint -t notif ex-keystore.xml ../ietf-*\@*.yang yanglint-notification.xml"
+command="yanglint -t notif -O ex-keystore.xml ../ietf-crypto-types@*.yang ../ietf-keystore@*.yang yanglint-notification.xml"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 rm yanglint-notification.xml
