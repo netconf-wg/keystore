@@ -32,7 +32,7 @@ run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 printf "Testing ex-keystore.xml..."
-command="yanglint --features=ietf-crypto-types:hidden-keys,one-symmetric-key-format,symmetric-key-encryption,cms-enveloped-data-format,one-asymmetric-key-format,private-key-encryption,cms-encrypted-data-format --features=ietf-keystore:central-keystore-supported,symmetric-keys,asymmetric-keys ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang ex-keystore.xml"
+command="yanglint --features=ietf-crypto-types:cleartext-symmetric-keys,hidden-symmetric-keys,encrypted-symmetric-keys,cleartext-private-keys,hidden-private-keys,encrypted-private-keys,cms-enveloped-data-format,one-symmetric-key-format,one-asymmetric-key-format,cms-encrypted-data-format --features=ietf-keystore:central-keystore-supported,symmetric-keys,asymmetric-keys ../ietf-keystore\@*.yang ../ietf-crypto-types\@*.yang ex-keystore.xml"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
