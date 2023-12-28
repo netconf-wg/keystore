@@ -33,7 +33,7 @@ extract_grouping() {
   extract_grouping_with_params "$1" "--tree-no-expand-uses" "tree-$1.no-expand.txt"
 }
 
-extract_grouping encrypted-by-choice-grouping
+extract_grouping encrypted-by-grouping
 extract_grouping asymmetric-key-certificate-ref-grouping
 extract_grouping inline-or-keystore-symmetric-key-grouping
 extract_grouping inline-or-keystore-asymmetric-key-grouping
