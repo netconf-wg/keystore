@@ -34,7 +34,7 @@ extract_grouping() {
 }
 
 extract_grouping encrypted-by-grouping
-extract_grouping asymmetric-key-certificate-ref-grouping
+extract_grouping central-asymmetric-key-certificate-ref-grouping
 extract_grouping inline-or-keystore-symmetric-key-grouping
 extract_grouping inline-or-keystore-asymmetric-key-grouping
 extract_grouping inline-or-keystore-asymmetric-key-with-certs-grouping
