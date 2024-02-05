@@ -5,9 +5,9 @@
   <!--<data> yanglint validation fails -->
     <ct:algorithm>aes-256-cbc</ct:algorithm>
     <ct:key-format>ct:encrypted-one-symmetric-key-format</ct:key-format>
-    <ks:encrypted-key>
+    <ks:encrypted-symmetric-key>
       <ks:asymmetric-key-ref>hidden-asymmetric-key</ks:asymmetric-key-ref>
       <ks:value>BASE64VALUE=</ks:value>
-    </ks:encrypted-key>
+    </ks:encrypted-symmetric-key>
   <!--</data> yanglint validation fails -->
 </rpc-reply>
